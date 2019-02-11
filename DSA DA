@@ -1,0 +1,132 @@
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
+
+int top=0;
+int a[20];
+
+void push(int x,int top,int n)
+    {
+        if(top==n)
+        {
+            printf("\nOverflow!! Invalid Expression");
+        }
+        else
+        {
+
+           top++;
+           a[top]=x;
+        }
+    }
+    int pop(int top)
+    {
+        if(top==0)
+        {
+            top==-1;
+            printf("\nStack is empty");
+            return NULL;
+        }
+        else if(top==-1)
+        {
+            printf("\nUnderflow !! Invalid Expression");
+            return NULL;
+        }
+        else
+        {
+            return a[top];
+            top=top-1;
+
+        }
+
+    }
+    int topp(int top)
+    {
+
+    }
+
+
+int main()
+{
+   int n=0;
+   char s[20];
+   printf("Enter Postfix Expression : ");
+   scanf("%s",s);
+   n=strlen(s);
+
+   int i=0,j;
+   for(i=0;i<n;i++)
+   {
+
+       if(isdigit(s[i]))
+       {
+           int r=atoi(s[i]);
+           push(r,top,n);
+
+       }
+       else if(s[i]=="+")
+       {
+           int b[2];
+           int sum=0;
+
+           for(j=0;j<2;j++)
+           {
+               b[j]=pop(top);
+               sum=sum+b[j];
+           }
+           push(sum,top,n);
+
+
+       }
+       else if(s[i]=="-")
+       {
+           int b[2];
+           int sum=0;
+
+           for(j=0;j<2;j++)
+           {
+               b[j]=pop(top);
+
+           }
+           sum=atoi (b[1])-atoi(b[0]);
+           push(sum,top,n);
+
+
+       }
+       else if(s[i]=="*")
+       {
+           int b[2];
+           int sum=0;
+
+           for(j=0;j<2;j++)
+           {
+               b[j]=pop(top);
+
+           }
+           sum=atoi(b[1])* atoi(b[0]);
+           push(sum,top,n);
+
+
+       }
+       else if(s[i]=="/")
+       {
+           int b[2];
+           int sum=0;
+
+           for(j=0;j<2;j++)
+           {
+               b[j]=pop(top);
+
+           }
+           sum=atoi(b[1])/atoi(b[0]);
+           push(sum,top,n);
+
+
+       }
+
+   }
+   int t=pop(top);
+   printf("\nResult :%d",t);
+   printf("Hello");
+   return 0;
+
+}
